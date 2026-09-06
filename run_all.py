@@ -15,17 +15,23 @@ def run_script(script_path):
     if not os.path.exists(script_path):
         print(f"LỖI: Không tìm thấy file {script_path}")
         return
+    
+    dir_name = os.path.dirname(script_path)
+    file_name = os.path.basename(script_path)
+    
     try:
         result = subprocess.run(
-            [sys.executable, os.path.basename(script_path)],
-            cwd=os.path.dirname(script_path),
+            [sys.executable, file_name],
+            cwd=dir_name if dir_name else None,
             capture_output=True,
             text=True
         )
+        if result.stdout:
+            print(f"Output [{script_path}]:\n{result.stdout}")
         if result.stderr:
-            print(f"Lỗi tại {script_path}:\n{result.stderr}")
+            print(f"Lỗi [{script_path}]:\n{result.stderr}")
     except Exception as e:
-        print(f"Ngoại lệ tại {script_path}: {e}")
+        print(f"Ngoại lệ [{script_path}]: {e}")
 
 if __name__ == "__main__":
     processes = []
