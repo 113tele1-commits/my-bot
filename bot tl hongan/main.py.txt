@@ -1,0 +1,52 @@
+import asyncio
+from aiogram import Bot, Dispatcher, F, types
+from aiogram.filters import CommandStart
+from aiogram.utils.keyboard import InlineKeyboardBuilder
+
+# Dán API Token từ BotFather vào đây
+BOT_TOKEN = "DÁN_TOKEN_CỦA_BẠN_VÀO_ĐÂY"
+
+bot = Bot(token=BOT_TOKEN)
+dp = Dispatcher()
+
+# Danh sách sản phẩm mẫu
+PRODUCTS = [
+    {"id": "p1", "bank": "Zalo OTP 10p", "price": "10.000đ"},
+    {"id": "p2", "bank": "Gửi SMS tự động", "price": "5.000đ"},
+]
+
+# Hàm tạo bàn phím Inline nút bấm
+def main_menu_keyboard():
+    builder = InlineKeyboardBuilder()
+    for item in PRODUCTS:
+        builder.button(
+            text=f"✅ {item['name']} - {item['price']}", 
+            callback_data=f"buy_{item['id']}"
+        )
+    builder.adjust(1) # 1 nút 1 hàng
+    
+    # Thêm nút phụ bên dưới
+    builder.row(
+        types.InlineKeyboardButton(text="💳 Nạp tiền", callback_data="deposit"),
+        types.InlineKeyboardButton(text="👤 Số dư: 0đ", callback_data="balance")
+    )
+    return builder.as_markup()
+
+# Xử lý khi khách bấm /start
+@dp.message(CommandStart())
+async def cmd_start(message: types.Message):
+    caption = "👋 **Chào mừng bạn đến với Shop Tự Động!**\nVui lòng chọn dịch vụ bên dưới:"
+    await message.answer(caption, parse_mode="Markdown", reply_markup=main_menu_keyboard())
+
+# Xử lý khi khách bấm vào nút mua sản phẩm
+@dp.callback_query(F.data.startswith("buy_"))
+async def handle_buy(callback: types.CallbackQuery):
+    await callback.answer("Bạn vừa bấm mua sản phẩm! (Tính năng trừ tiền sẽ làm ở bước sau)", show_alert=True)
+
+# Chạy bot
+async def main():
+    print("Bot đã bắt đầu chạy...")
+    await dp.start_polling(bot)
+
+if __name__ == "__main__":
+    asyncio.run(main())

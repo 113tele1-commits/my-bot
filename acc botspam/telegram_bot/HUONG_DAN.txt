@@ -1,0 +1,77 @@
+HUONG DAN SU DUNG - TELEGRAM FORWARD BOT
+==========================================
+
+1. CAI THU VIEN CAN THIET
+--------------------------
+Mo Command Prompt tai thu muc chua file nay, go:
+
+    pip install telethon
+
+
+2. LAY API ID VA API HASH
+---------------------------
+1. Vao https://my.telegram.org
+2. Dang nhap bang so dien thoai Telegram cua ban
+3. Chon "API development tools"
+4. Tao ung dung moi -> lay api_id va api_hash
+
+
+3. SUA FILE forward_bot.py
+----------------------------
+Mo file forward_bot.py bang Notepad, tim va sua 2 dong dau:
+
+    api_id = 123456                  -> thay bang api_id that
+    api_hash = 'xxxxxxxxxxxxxxxxxxxxxxxx'  -> thay bang api_hash that
+
+Luu lai (Ctrl + S).
+
+
+4. CHAY BOT
+------------
+Trong Command Prompt (dung thu muc chua file), go:
+
+    python3 forward_bot.py
+
+hoac neu may ban dung lenh "python" binh thuong:
+
+    python forward_bot.py
+
+Lan dau chay se hoi so dien thoai (+84...) va ma OTP gui qua Telegram.
+Sau khi dang nhap, se tu tao file session_name.session - GIU BI MAT file nay,
+khong chia se cho ai.
+
+
+5. CACH SU DUNG
+-----------------
+Bot lang nghe tin nhan trong "Saved Messages" (Tin nhan da luu) cua chinh ban.
+
+Cach forward 1 bai dang cu the:
+1. Vao kenh/nhom co bai dang muon forward
+2. Click chuot phai vao bai dang -> chon "Copy Post Link"
+   (lay duoc link dang: https://t.me/ten_kenh/123)
+3. Vao Saved Messages, gui: https://t.me/ten_kenh/123 ok
+4. Bot se tu dong forward bai do toi tat ca nhom/kenh ban da tham gia
+
+
+6. DUNG BOT
+------------
+Trong cua so dang chay bot, bam: Ctrl + C
+
+
+LUU Y QUAN TRONG VE AN TOAN TAI KHOAN
+========================================
+- Telegram co he thong tu dong phat hien va chan hanh vi gui hang loat (spam).
+  Neu ban forward lien tuc, lap lai nhieu lan, hoac gui toi qua nhieu nhom
+  cung luc, tai khoan cua ban co the bi:
+    + Chan gui tin o mot so nhom/kenh cu the
+    + Gioi han toan bo tai khoan (khong gui duoc o dau ca)
+    + Khoa tai khoan vinh vien trong truong hop nghiem trong
+
+- Bien DELAY_BETWEEN_GROUPS trong code (mac dinh 2 giay) giup giam rui ro nay,
+  KHONG nen giam xuong qua thap hoac xoa bo.
+
+- Chi nen forward toi cac nhom/kenh ban thuc su la thanh vien hop le va
+  duoc phep dang bai, tranh gui hang loat toi cac nhom khong lien quan.
+
+- File session_name.session la thong tin dang nhap tai khoan Telegram cua ban.
+  TUYET DOI khong chia se file nay hoac api_hash cho bat ky ai.
