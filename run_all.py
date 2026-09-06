@@ -4,7 +4,7 @@ import os
 import sys
 
 BOTS = [
-    os.path.join("acc botspam", "main.py"),
+    os.path.join("acc botspam", "telegram_bot", "main.py"),
     os.path.join("bottele", "main.py"),
     os.path.join("bot tl hongan", "main.py"),
     os.path.join("bot cho thuê sim otp", "main2.py")
